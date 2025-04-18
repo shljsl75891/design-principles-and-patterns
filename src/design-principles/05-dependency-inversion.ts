@@ -28,8 +28,8 @@ highLvl.execute("Compliant Code");
  * they should depend on abstractions (interfaces / abstract classes).
  *
  * Abstractions shouldn't depend on details (underlying implementation),
- * instead it should be dependent on abstractions. Low Level Modules
- * must implement contract declared by interfaces / abstract classes.
+ * instead underlying implementation should be dependent on abstractions.
+ * Low Level Modules must implement contract declared by interfaces / abstract classes.
  */
 interface IDatabase {
   save(data: string): void;
