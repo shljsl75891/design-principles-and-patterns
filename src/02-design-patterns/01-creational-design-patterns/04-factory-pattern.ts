@@ -5,16 +5,10 @@
  */
 abstract class Car {
   constructor(
-    public model: string,
-    public year: number,
+    protected readonly model: string,
+    protected readonly year: number,
   ) {}
   abstract displayInfo(): void;
-}
-
-enum CarType {
-  Renault = "Renault",
-  Suzuki = "Suzuki",
-  Tata = "Tata",
 }
 
 class RenaultCar extends Car {
@@ -42,35 +36,52 @@ class TataCar extends Car {
 }
 
 /** Creates family of instances of subclasses extending same super class - `Car` */
-class CarFactory {
-  private static _instance: CarFactory;
-  private constructor() {}
+abstract class CarFactory {
+  /**
+   * The factory method helps to decouple the instantiation logic from the concrete product classes
+   * It doesn’t have to create new instances all the time. It can also return existing objects
+   * from a cache, an object pool, or another source.
+   */
+  abstract createCar(model: string, year: number): Car;
+}
 
-  static get instance(): CarFactory {
-    if (!this._instance) {
-      console.log("Instantiating car factory");
-      this._instance = new CarFactory();
-    }
-    return this._instance;
+class RenaultCarFactory extends CarFactory {
+  createCar(model: string, year: number): Car {
+    return new RenaultCar(model, year);
   }
+}
 
-  createCar(type: CarType, model: string, year: number): Car {
-    switch (type) {
-      case CarType.Tata:
-        return new TataCar(model, year);
-      case CarType.Suzuki:
-        return new SuzukiCar(model, year);
-      case CarType.Renault:
-        return new RenaultCar(model, year);
-      default:
-        throw new Error("Invalid type of car");
-    }
+class SuzukiCarFactory extends CarFactory {
+  createCar(model: string, year: number): Car {
+    return new SuzukiCar(model, year);
+  }
+}
+class TataCarFactory extends CarFactory {
+  createCar(model: string, year: number): Car {
+    return new TataCar(model, year);
   }
 }
 
 /* --------------------------- Client Code ------------------------- */
-const carFactory = CarFactory.instance;
-carFactory.createCar(CarType.Renault, "Kwid", 2017).displayInfo();
-carFactory.createCar(CarType.Suzuki, "Alto", 2017).displayInfo();
-carFactory.createCar(CarType.Renault, "Duster", 2019).displayInfo();
-carFactory.createCar(CarType.Tata, "Bolero", 2013).displayInfo();
+const renaultCarFactory = new RenaultCarFactory();
+const suzukiCarFactory = new SuzukiCarFactory();
+const tataCarFactory = new TataCarFactory();
+
+renaultCarFactory.createCar("Kwid", 2017).displayInfo();
+renaultCarFactory.createCar("Duster", 2015).displayInfo();
+
+suzukiCarFactory.createCar("Fronx", 2024).displayInfo();
+
+tataCarFactory.createCar("Bolero", 2014).displayInfo();
+
+/**
+ * ✅ When to Use the Control Parameter (Switch is OK) V1:
+ * - You’re not planning to extend product types often.
+ * - You have a small or fixed number of product types.
+ * - You want to avoid class explosion.
+ *
+ * ❌ When Not Ideal V2:
+ * - Product creation logic varies significantly across types.
+ * - You want to support open/closed adherence (add without modify).
+ * - You're building a library/framework with extensibility in mind.
+ */
