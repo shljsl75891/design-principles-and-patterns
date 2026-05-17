@@ -1,4 +1,4 @@
-// --------------------------------------COMPLIANT CODE---------------------------
+// --------------------------------------NON COMPLIANT CODE---------------------------
 // Low Level Module
 class MySqlDatabase {
   save(data: string): void {
@@ -17,12 +17,12 @@ class _HighLevelModule {
 const mysql = new MySqlDatabase();
 const highLvl = new _HighLevelModule(mysql);
 
-highLvl.execute("Compliant Code");
+highLvl.execute("Non Compliant Code");
 
 // ----------------------------------------------------------------------------------------
 
 /**
- * NON COMPLIANT CODE - Dependency Inversion Principle
+ * COMPLIANT CODE - Dependency Inversion Principle
  *
  * The high level module must not depend on low level modules directly. Instead
  * they should depend on abstractions (interfaces / abstract classes).

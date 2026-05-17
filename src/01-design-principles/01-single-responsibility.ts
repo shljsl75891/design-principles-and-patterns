@@ -1,7 +1,7 @@
 /**
-/* It should not be responsible for creating the user or managing the user data
-* It should not be responsible for any other logic
-*/
+ * It should be responsible for creating the user or managing the user data
+ * It should not be responsible for any other logic
+ */
 class User {
   constructor(_name: string, _email: string) {}
 }
