@@ -1,3 +1,10 @@
+/**
+ * This pattern is also used when we need to interact with a complex third party
+ * libraries exposing a lot of methods, but we only need a few of them.
+ *
+ * In this case, we can create a facade class that exposes only the methods we need and delegates the calls to the third party library.
+ * If in future, third party library changes the signature of its APIs, we only need to change the facade class and not the client code.
+ */
 class Grinder {
   public grindBeans(): void {
     console.log("Grinding coffee beans...");
