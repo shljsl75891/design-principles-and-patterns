@@ -20,19 +20,21 @@ File layout (in this order):
  * Use when: <specific conditions or signals that suggest this pattern>
  */
 
-// --------- NON COMPLIANT CODE --------- (include only if it helps contrast)
+/**
+ * --------- NON COMPLIANT CODE ---------
+ * <explain why this approach is problematic — what it couples, why it doesn't
+ * scale, what concern it violates, etc.>
+ */
 ... problematic implementation ...
 
-// COMPLIANT CODE
+/**
+ * --------- COMPLIANT CODE ------------
+ * <explain how this approach solves the problem — what the pattern does,
+ * how it decouples concerns, what makes it better>
+ */
 ... compliant implementation ...
 
-/*--------- Client Code ---------*/
+/* --------- Client Code --------- */
 const x = new SomeClass();
 console.log(x.someMethod());
-```
-
-### 4. Wire into `index.ts`
-
-```ts
-import "./NN-pattern-name";
 ```
